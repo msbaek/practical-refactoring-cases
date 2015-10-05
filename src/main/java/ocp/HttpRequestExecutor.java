@@ -1,9 +1,6 @@
 package ocp;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
@@ -18,11 +15,13 @@ public class HttpRequestExecutor {
 	public ResponseModel handleRequest(String requestURI, Map<String, String> params) throws IOException {
 		String paramsString = getParamsString(params);
 
-		urlConnection = openConnection(requestURI, paramsString);
+		URL url = new URL(requestURI + paramsString);
+		urlConnection = (HttpURLConnection) url.openConnection();
+		urlConnection.setReadTimeout(DEFAULT_SOCKET_TIMEOUT_SEC);
+		urlConnection.setConnectTimeout(DEFAULT_CONNECT_TIMEOUT_SEC);
 
-		initDefaultSetting(DEFAULT_SOCKET_TIMEOUT_SEC);
-
-		String responseBody = getBody(urlConnection);
+		InputStream inputStream = urlConnection.getInputStream();
+		String responseBody = convertInputStreamToString(inputStream);
 
 		urlConnection.disconnect();
 
@@ -42,38 +41,23 @@ public class HttpRequestExecutor {
 		return paramsString;
 	}
 
-	private HttpURLConnection openConnection(String requestURI, String paramsString) throws IOException {
-		URL url = new URL(requestURI + paramsString);
-		return (HttpURLConnection) url.openConnection();
-	}
-
-	private void initDefaultSetting(int socketTimeout) {
-		urlConnection.setReadTimeout(socketTimeout);
-		urlConnection.setConnectTimeout(DEFAULT_CONNECT_TIMEOUT_SEC);
-		urlConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
-	}
-
-	private String getBody(HttpURLConnection urlConnection) throws IOException {
-		InputStream inputStream = urlConnection.getInputStream();
-		return convertInputStreamToString(inputStream);
-	}
-
 	private String convertInputStreamToString(InputStream inputStream) throws IOException {
-		BufferedReader bufferedReader = null;
-		bufferedReader = new BufferedReader(new InputStreamReader(inputStream, inputEncoding));
-		String line = "";
-		String result = "";
-		while ((line = bufferedReader.readLine()) != null) {
-			result += line;
-		}
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, inputEncoding));
+		String line;
+		StringBuffer result = new StringBuffer();
 
-		if (bufferedReader != null) {
-			bufferedReader.close();
-		}
-		if (inputStream != null) {
-			inputStream.close();
-		}
+		while ((line = bufferedReader.readLine()) != null)
+			result.append(line);
 
-		return result;
+		close(bufferedReader);
+		close(inputStream);
+
+		return result.toString();
+	}
+
+	private void close(Closeable closeable) throws IOException {
+		if (closeable != null) {
+			closeable.close();
+		}
 	}
 }
