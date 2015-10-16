@@ -13,11 +13,8 @@ public abstract class HttpRequestExecutor {
 	private static final String inputEncoding = "UTF-8";
 	protected static final String outputEncoding = "UTF-8";
 	protected HttpURLConnection urlConnection;
-    private Boolean isGet;
 
-    public ResponseModel handleRequest(Boolean isGet, String requestURI, Map<String, String> params) throws IOException {
-        this.isGet = isGet;
-
+    public ResponseModel handleRequest(String requestURI, Map<String, String> params) throws IOException {
 		String paramsString = getParamsString(params);
 
 		URL url = createUrl(requestURI, paramsString);
@@ -34,10 +31,6 @@ public abstract class HttpRequestExecutor {
 
 		return new ResponseModel(requestURI, responseBody);
 	}
-
-    private boolean isPOST() {
-        return !isGet;
-    }
 
     private String getResponseBody() throws IOException {
         InputStream inputStream = urlConnection.getInputStream();

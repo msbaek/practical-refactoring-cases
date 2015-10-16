@@ -1,6 +1,5 @@
 package ocp;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,14 +15,14 @@ public class HttpRequestExecutorTest {
 
     @Test
     public void get() throws IOException {
-        ResponseModel responseModel = new GETRequestExecutor().handleRequest(isGet, requestURI, params);
+        ResponseModel responseModel = new GETRequestExecutor().handleRequest(requestURI, params);
         assertThat(responseModel.getResponseAsText(), startsWith("<!DOCTYPE html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>Daum &ndash; 모으다 잇다 흔들다</title"));
     }
 
     @Test
     public void post() throws IOException {
         isGet = false;
-        ResponseModel responseModel = new POSTExecutor().handleRequest(isGet, requestURI, params);
+        ResponseModel responseModel = new POSTExecutor().handleRequest(requestURI, params);
         assertThat(responseModel.getResponseAsText(), startsWith("<!DOCTYPE html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>Daum &ndash; 모으다 잇다 흔들다</title"));
     }
 }

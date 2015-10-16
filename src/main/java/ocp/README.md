@@ -1,3 +1,8 @@
+# 들어가기
+
+이 예제에서는 한가지 기능(Http GET 요청 처리)을 구현한 후 유사한 다른 기능(PUT 요청 처리)이 추가되었을 때 일반적으로 해결하는 방법(분기 처리)과 객체지향적으로 처리하는 방법(추상화 적용)을 설명한다.
+
+
 # 1. 최초 요구사항
 
 GET 메소드로 http request를 요청하고 결과를 반환하는 요구사항
@@ -14,6 +19,9 @@ GET 메소드로 http request를 요청하고 결과를 반환하는 요구사�
 ![image](http://i.imgur.com/iiM46dN.png)
 
 ### 2.2 make it pass
+
+새로운 요구사항이 생기면 보통은 기존에 비슷한 요구사항을 처리하던 class에 새로운 메소드를 추가하거나 기존 메소드를 살짝 수정하여 이를 해결하는게 많이 볼 수 있는 모습니다. 새로운 기능을 구현하기 위해 필요한 기능 중 많은 부분을 이미 구현된 기능에서 차용해서 쓸 수 있는 것이 한가지 이유이다.
+
 ![image](http://i.imgur.com/enmj2DX.png)
 
 ### 3.3 refactoring
@@ -30,8 +38,8 @@ GET 메소드로 http request를 요청하고 결과를 반환하는 요구사�
 
 다형성을 제공하는 방법은 2가지를 생각할 수 있다.
 
-- 상속: 변경이 필요한 함수들을 abstract로 선언하고 서브 클래스에서 오버라이드하는 방법
-- 위임: 변경이 필요한 함수들을 interface로 정의하고 구현체를 제공하는 방법
+- 상속: 변경이 필요한 함수들을 abstract로 선언하고 서브 클래스에서 오버라이드하는 방법 - [Template Method Pattern](https://www.google.co.kr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCIQFjAAahUKEwjlr8-fy8bIAhUjKKYKHYbAClw&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FTemplate_method_pattern&usg=AFQjCNH1JeW2hWCJ-mkbqGlmR-OGR5ZNqQ&sig2=oqjLyvYqSuttzde82hFzAg)
+- 위임: 변경이 필요한 함수들을 interface로 정의하고 구현체를 제공하는 방법 - [Strategy Pattern](https://www.google.co.kr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0CCgQFjABahUKEwjHreury8bIAhVBe6YKHRD4CeI&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FStrategy_pattern&usg=AFQjCNEs9k3dvzK3TPaeWwmhld6qHDK6-Q&sig2=ktUelyLgs3BZRPZgrqw5oQ&bvm=bv.105039540,d.dGY)
 
 이 예제에서는 상속을 이용하는 방법이 좋아보인다. 만일 변경이 필요한 메소드가 1개였다면 위임이 보다 좋아 보였을 것 같다(이건 그냥 개인적인 취향인듯. 혹 맘에 안 드시는 분은 위임으로 해결해 보셔도...)
 
@@ -100,3 +108,9 @@ push down한 메소드들을 아래와 같이 수정하여 테스트가 성공�
 ![image](https://api.monosnap.com/rpc/file/download?id=pQi3Sp0vBKbKci4N3dPMOiaE1r652f)
 
 ![image](https://api.monosnap.com/rpc/file/download?id=fbQp1iE8MD2NRR0TwYVdq7j6C4qs26)
+
+### Refactoring
+
+아래와 같이 불필요한 코드를 제거한다.
+
+![image](https://api.monosnap.com/rpc/file/download?id=r2sr49iHp529zgKED0a90wwcyIziSE)
