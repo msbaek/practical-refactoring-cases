@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.function.BooleanSupplier;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringStartsWith.startsWith;

@@ -12,3 +12,6 @@ GET 메소드로 http request를 요청하고 결과를 반환하는 요구사�
 
 ### 2.1 failing test 추가
 ![image](http://i.imgur.com/iiM46dN.png)
+
+### 2.2 make it pass
+![image](http://i.imgur.com/enmj2DX.png)

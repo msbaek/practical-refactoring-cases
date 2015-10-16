@@ -10,15 +10,31 @@ public class HttpRequestExecutor {
 	public static final int DEFAULT_CONNECT_TIMEOUT_SEC = 10000;
 	public static final int DEFAULT_SOCKET_TIMEOUT_SEC = 30000;
 	private static final String inputEncoding = "UTF-8";
+	private static final String outputEncoding = "UTF-8";
 	private HttpURLConnection urlConnection;
 
-	public ResponseModel handleRequest(String requestURI, Map<String, String> params) throws IOException {
+	public ResponseModel handleRequest(Boolean isGet, String requestURI, Map<String, String> params) throws IOException {
 		String paramsString = getParamsString(params);
 
-		URL url = new URL(requestURI + paramsString);
+		URL url = null;
+		if(isGet)
+			url = new URL(requestURI + paramsString);
+		else
+			url = new URL(requestURI);
+
 		urlConnection = (HttpURLConnection) url.openConnection();
 		urlConnection.setReadTimeout(DEFAULT_SOCKET_TIMEOUT_SEC);
 		urlConnection.setConnectTimeout(DEFAULT_CONNECT_TIMEOUT_SEC);
+
+		if(!isGet) {
+			urlConnection.setDoOutput(true);
+			urlConnection.setChunkedStreamingMode(0);
+
+			BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(urlConnection.getOutputStream());
+			bufferedOutputStream.write(paramsString.getBytes(outputEncoding));
+			bufferedOutputStream.flush();
+			bufferedOutputStream.close();
+		}
 
 		InputStream inputStream = urlConnection.getInputStream();
 		String responseBody = convertInputStreamToString(inputStream);
