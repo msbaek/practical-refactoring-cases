@@ -85,3 +85,10 @@ public class POSTExecutor extends HttpRequestExecutor {
 
 ![image](https://api.monosnap.com/rpc/file/download?id=iGkUzKrLArLflrFDtvg54OKstfUYeM)
 
+### 4.4 Make it work
+
+push down한 메소드들을 아래와 같이 수정하여 테스트가 성공하도록 한다.
+
+![image](http://i.imgur.com/muVtfuA.png)
+
+![image](http://i.imgur.com/zikE1Yp.png)
