@@ -15,3 +15,7 @@ GET 메소드로 http request를 요청하고 결과를 반환하는 요구사�
 
 ### 2.2 make it pass
 ![image](http://i.imgur.com/enmj2DX.png)
+
+### 3.3 refactoring
+코드를 읽기 좋게 하기 위해 Extract Method를 수차례 수행
+![image](https://api.monosnap.com/rpc/file/download?id=6sXGzD0rKRCivfB6WOIskMyu2k5fqS)
