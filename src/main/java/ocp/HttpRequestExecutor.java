@@ -11,8 +11,8 @@ public abstract class HttpRequestExecutor {
 	public static final int DEFAULT_CONNECT_TIMEOUT_SEC = 10000;
 	public static final int DEFAULT_SOCKET_TIMEOUT_SEC = 30000;
 	private static final String inputEncoding = "UTF-8";
-	private static final String outputEncoding = "UTF-8";
-	private HttpURLConnection urlConnection;
+	protected static final String outputEncoding = "UTF-8";
+	protected HttpURLConnection urlConnection;
     private Boolean isGet;
 
     public ResponseModel handleRequest(Boolean isGet, String requestURI, Map<String, String> params) throws IOException {
@@ -44,21 +44,9 @@ public abstract class HttpRequestExecutor {
         return convertInputStreamToString(inputStream);
     }
 
-    private void additionalWorkWith(String paramsString) throws IOException {
-        if(!isPOST())
-            return;
-        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(urlConnection.getOutputStream());
-        bufferedOutputStream.write(paramsString.getBytes(outputEncoding));
-        bufferedOutputStream.flush();
-        bufferedOutputStream.close();
-    }
+    protected abstract void setAdditionalConnectionSettings();
 
-    private void setAdditionalConnectionSettings() {
-        if(!isPOST())
-            return;
-        urlConnection.setDoOutput(true);
-        urlConnection.setChunkedStreamingMode(0);
-    }
+    protected abstract void additionalWorkWith(String paramsString) throws IOException;
 
     private void setDefaultConnectionSettings(URL url) throws IOException {
         urlConnection = (HttpURLConnection) url.openConnection();

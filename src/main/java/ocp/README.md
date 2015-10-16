@@ -92,3 +92,11 @@ push down한 메소드들을 아래와 같이 수정하여 테스트가 성공�
 ![image](http://i.imgur.com/muVtfuA.png)
 
 ![image](http://i.imgur.com/zikE1Yp.png)
+
+### 4.5 More Push Down Members
+
+![image](https://api.monosnap.com/rpc/file/download?id=vV9w84U7PQtrobHh0v5BMZC1O6z4my)
+
+![image](https://api.monosnap.com/rpc/file/download?id=pQi3Sp0vBKbKci4N3dPMOiaE1r652f)
+
+![image](https://api.monosnap.com/rpc/file/download?id=fbQp1iE8MD2NRR0TwYVdq7j6C4qs26)
