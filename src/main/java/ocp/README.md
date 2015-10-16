@@ -42,3 +42,9 @@ GET 메소드로 http request를 요청하고 결과를 반환하는 요구사�
 - writePOSTParameters(additionalWorkWith(paramStrings)라고 하는게...)
 
 등의 함수들을 abstract로 정의하고 서브 클래스에서 구현하도록 하겠다.
+
+# 4. 다형성을 갖도록 상속을 적용
+
+### 4.1 테스트가 다형성을 갖도록 변경
+
+![image](https://api.monosnap.com/rpc/file/download?id=GwlgCur2umBJKkptVivPAt6jHXC8PN)
