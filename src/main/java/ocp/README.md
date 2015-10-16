@@ -26,14 +26,19 @@ GET 메소드로 http request를 요청하고 결과를 반환하는 요구사�
 
 이는 [OCP(Open Closed Principle)](https://www.youtube.com/watch?v=dqa-IdafeIE)위반이다.
 
-객체지향적인 방법으로 POST 메소드 추가에 대응을 했다면 변경이 필요한 곳(분기처리가 필요한 곳)에 추상화를 적용했어야 한다.
+객체지향적인 방법으로 POST 메소드 추가에 대응을 했다면 변경이 필요한 곳(분기처리가 필요한 곳)에 다형성을 갖도록 하여 분기를 제거함으로써 OCP를 준수할 수 있다.
 
-이 말은 변경이 필요한 곳을 조건문으로 처리하지 말고 인터페이스에 대한 호출로 변경해야 한다는 것을 의미한다.
+다형성을 제공하는 방법은 2가지를 생각할 수 있다.
+
+- 상속: 변경이 필요한 함수들을 abstract로 선언하고 서브 클래스에서 오버라이드하는 방법
+- 위임: 변경이 필요한 함수들을 interface로 정의하고 구현체를 제공하는 방법
+
+이 예제에서는 상속을 이용하는 방법이 좋아보인다. 만일 변경이 필요한 메소드가 1개였다면 위임이 보다 좋아 보였을 것 같다(이건 그냥 개인적인 취향인듯. 혹 맘에 안 드시는 분은 위임으로 해결해 보셔도...)
 
 즉
 
 - createUrl
 - setPOSTConnectionSettings(이 메소드 이름은 setAdditionalConnectionSettings라고 하는게 좀 더 나을 듯)
-- writePOSTParameters
+- writePOSTParameters(additionalWorkWith(paramStrings)라고 하는게...)
 
-등의 함수들을 갖는 인터페이스를 정의하고 이에 대한 구현체를 제공하라는 의미이다.
+등의 함수들을 abstract로 정의하고 서브 클래스에서 구현하도록 하겠다.

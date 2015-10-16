@@ -24,10 +24,9 @@ public class HttpRequestExecutor {
 
         setDefaultConnectionSettings(url);
 
-		if(isPOST()) {
-            setPOSTConnectionSettings();
-            writePOSTParameters(paramsString);
-		}
+        setAdditionalConnectionSettings();
+
+        additionalWorkWith(paramsString);
 
         String responseBody = getResponseBody();
 
@@ -45,14 +44,18 @@ public class HttpRequestExecutor {
         return convertInputStreamToString(inputStream);
     }
 
-    private void writePOSTParameters(String paramsString) throws IOException {
+    private void additionalWorkWith(String paramsString) throws IOException {
+        if(!isPOST())
+            return;
         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(urlConnection.getOutputStream());
         bufferedOutputStream.write(paramsString.getBytes(outputEncoding));
         bufferedOutputStream.flush();
         bufferedOutputStream.close();
     }
 
-    private void setPOSTConnectionSettings() {
+    private void setAdditionalConnectionSettings() {
+        if(!isPOST())
+            return;
         urlConnection.setDoOutput(true);
         urlConnection.setChunkedStreamingMode(0);
     }
