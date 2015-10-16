@@ -48,3 +48,23 @@ GET 메소드로 http request를 요청하고 결과를 반환하는 요구사�
 ### 4.1 테스트가 다형성을 갖도록 변경
 
 ![image](https://api.monosnap.com/rpc/file/download?id=GwlgCur2umBJKkptVivPAt6jHXC8PN)
+
+### 4.2 makt it pass
+
+테스트가 동작하도록 수정
+
+아래와 같이 2개의 클래스를 추가
+
+```
+package ocp;
+
+public class GETRequestExecutor extends HttpRequestExecutor {
+}
+```
+
+```
+package ocp;
+
+public class POSTExecutor extends HttpRequestExecutor {
+}
+```
