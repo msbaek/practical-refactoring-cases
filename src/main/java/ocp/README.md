@@ -68,3 +68,20 @@ package ocp;
 public class POSTExecutor extends HttpRequestExecutor {
 }
 ```
+
+### 4.3 Push Members Down
+
+서브 클래스에서 오버라이드해야할 메소드들을 IntelliJ의 "Push Members Down"을 이용해서 서브 클래스로 내린다.
+
+![image](http://i.imgur.com/iY2phYg.png)
+
+위 그림은 서브 클래스로 내릴 `createUrl` 메소드에서 `push down members`를 선택하는 화면이다.
+
+![image](https://api.monosnap.com/rpc/file/download?id=waiYlLBothPlFGwp8tACi7iN75m8E0)
+
+`Keep Abstract`를 선택한 후 `Refactor`를 클릭한다.
+
+이렇게 하면 `createUrl` 메소드는 GETExecutor, POSTExecutor로 복사되면서 HttpRequestExecutor에는 아래와 같이 protected abstract로 남게 된다.
+
+![image](https://api.monosnap.com/rpc/file/download?id=iGkUzKrLArLflrFDtvg54OKstfUYeM)
+

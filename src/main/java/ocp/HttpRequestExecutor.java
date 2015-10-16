@@ -7,7 +7,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 
-public class HttpRequestExecutor {
+public abstract class HttpRequestExecutor {
 	public static final int DEFAULT_CONNECT_TIMEOUT_SEC = 10000;
 	public static final int DEFAULT_SOCKET_TIMEOUT_SEC = 30000;
 	private static final String inputEncoding = "UTF-8";
@@ -66,14 +66,7 @@ public class HttpRequestExecutor {
         urlConnection.setConnectTimeout(DEFAULT_CONNECT_TIMEOUT_SEC);
     }
 
-    private URL createUrl(String requestURI, String paramsString) throws MalformedURLException {
-        URL url;
-        if(isGet)
-			url = new URL(requestURI + paramsString);
-		else
-			url = new URL(requestURI);
-        return url;
-    }
+    protected abstract URL createUrl(String requestURI, String paramsString) throws MalformedURLException;
 
     private String getParamsString(Map<String, String> params) {
 		String paramsString = "";
